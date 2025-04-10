@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Surprise</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <style>
+    /* Common Styles */
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to top right, #ffd5ec, #ffe6cc);
+    }
+
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-size: cover;
+      opacity: 0.8;
+      animation: float 10s infinite linear;
+    }
+
+    .heart-sparkle {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+    }
+
+    .butterfly-sparkle {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png');
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) translateX(50px);
+        opacity: 0;
+      }
+    }
+
+    /* Page 1 Styles */
+    #page1 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top right, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      flex-direction: column;
+    }
+
+    .big-heart {
+      width: 150px;
+      height: 150px;
+      background: red;
+      position: relative;
+      transform: rotate(-45deg);
+      animation: beat 1s infinite;
+      cursor: pointer;
+    }
+
+    .big-heart::before,
+    .big-heart::after {
+      content: "";
+      width: 150px;
+      height: 150px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .big-heart::before {
+      top: -75px;
+      left: 0;
+    }
+
+    .big-heart::after {
+      left: 75px;
+      top: 0;
+    }
+
+    @keyframes beat {
+      0%, 100% {
+        transform: scale(1) rotate(-45deg);
+      }
+      50% {
+        transform: scale(1.2) rotate(-45deg);
+      }
+    }
+
+    /* Page 2 Styles */
+    #page2 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 2;
+    }
+
+    .message {
+      max-width: 800px; /* Controls the width nicely */
+      margin: 100px auto; /* Center it horizontally and give space from top */
+      text-align: center;
+      color: #333;
+      z-index: 1;
+      position: relative;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.2); /* Optional soft background */
+      border-radius: 20px; /* Rounded corners */
+      backdrop-filter: blur(10px); /* Glass effect */
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .message h1 {
+      font-size: 3em;
+      margin: 0.5em;
+    }
+    .message p {
+      font-size: 1.5em;
+      margin: 20px 0;
+    }
+
+    /* Hide audio controls */
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background Sparkles -->
+<div class="background" id="background"></div>
+
+<!-- Page 1 -->
+<div id="page1">
+  <div class="big-heart" onclick="goToPage2()"></div>
+</div>
+
+<!-- Page 2 -->
+<div id="page2">
+  <div class="message">
+      <p><b>Happy Birthday, My Love ! ❤️</b></p>
+      <p>You are the melody to my heart, the spark in my every smile, and the dream I get to live every day.I love you so much my cutie sweety hubbby. Thank you for being my forever.</p>
+      <p>Every moment with you feels like a beautiful song playing on repeat, filling my soul with happiness and peace. I love you more than words can say.</p>
+      <p>Today, let's celebrate you—the incredible, kind, and beautiful soul who makes my world so much brighter.<br>You deserve endless happiness, today and always.</p>
+      <p>As we both know that "In a universe of infinite stars, destiny still chose you and me". You’re my blessing from the universe, my proof that miracles do happen. 
+        I’ll always be grateful for the day I found you, and even more grateful that you stayed. Thank you so much yashu.</p>
+      <p><span style="color: crimson; text-shadow: 0 0 5px crimson, 0 0 10px crimson, 0 0 20px crimson;">From your Rose 🌹🫶</span></p>
+
+    
+  </div>
+</div>
+
+<!-- Background Music -->
+<audio id="bg-music" src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" loop autoplay></audio>
+
+
+<!-- JavaScript -->
+<script>
+  const background = document.getElementById('background');
+
+  function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    if (Math.random() > 0.5) {
+      sparkle.classList.add('heart-sparkle');
+    } else {
+      sparkle.classList.add('butterfly-sparkle');
+    }
+    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+    sparkle.style.animationDuration = (5 + Math.random() * 5) + 's';
+    background.appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 10000);
+  }
+
+  setInterval(createSparkle, 500);
+
+  function goToPage2() {
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'flex';
+    document.getElementById('bg-music').play();
+  }
+</script>
+
+</body>
+</html>
